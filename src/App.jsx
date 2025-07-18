@@ -17,7 +17,8 @@ function App({ adminMode = false }) {
     { Name: "Gauri" },
     { Name: "Mahesh" },
     { Name: "Dinesh" },
-    { Name: "Neeraj" }
+    { Name: "Neeraj" },
+    { Name: "Pragati" },
   ]);
 
   const backendUrl = import.meta.env.VITE_API_KEY || 'http://localhost:5000';
