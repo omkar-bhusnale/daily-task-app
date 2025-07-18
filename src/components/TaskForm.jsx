@@ -9,7 +9,7 @@ export default function TaskForm({ onAddTask }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (!task || !status) return;
+    if (!task || !status || !projectName) return;
     onAddTask({ task, projectName, status, comments });
     setTask("");
     setProjectName("");
