@@ -1,0 +1,15 @@
+/* TaskFilter styles */
+.task-filter {
+  margin-bottom: 1rem;
+}
+.task-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.task-select {
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+}

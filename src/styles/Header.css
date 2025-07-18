@@ -1,0 +1,50 @@
+/* Header styles */
+.header-navbar {
+  width: 100%;
+  background: linear-gradient(90deg, #5080e7 60%, #79a0c7 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-navbar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 2.5rem;
+}
+
+.header-title {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.header-settings-container {
+  display: flex;
+  align-items: center;
+}
+
+.header-settings-btn {
+  padding: 0.6rem;
+  border-radius: 6px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.3rem;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.header-settings-btn:hover {
+  background: #174ea6;
+}

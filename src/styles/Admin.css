@@ -1,0 +1,202 @@
+/* Admin Filters Container */
+.admin-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-end;
+  justify-content: flex-start;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+/* Individual filter item */
+.admin-filter-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+  margin-bottom: 0;
+}
+
+.admin-filter-item label,
+.status-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  color: #222;
+}
+
+/* Date range input styles (match DatePicker) */
+.date-range-input {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  width: 100%;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.date-range-input:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+/* Status selector styles */
+.status-select {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 1rem;
+  background: #f5faff;
+  transition: border-color 0.2s;
+  box-shadow: 0 1px 2px rgba(25, 118, 210, 0.04);
+}
+
+.status-select:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+/* UserSelector styles (match DatePicker) */
+.admin-filter-item select {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 1rem;
+  background: #f5faff;
+  transition: border-color 0.2s;
+  box-shadow: 0 1px 2px rgba(25, 118, 210, 0.04);
+}
+
+.admin-filter-item select:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+/* Date range input styles */
+.date-range-input {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  background: #f9f9f9;
+  transition: border-color 0.2s;
+}
+
+.date-range-input:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+/* Status selector styles */
+.status-select {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: #f9f9f9;
+  transition: border-color 0.2s;
+}
+
+.status-select:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+/* Admin Panel Styles */
+.admin-panel {
+  max-width: 950px;
+  margin: 2rem auto;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f9f9f9 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
+  padding: 2.5rem 2rem;
+  position: relative;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.admin-title {
+  color: #1976d2;
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.admin-back-btn {
+  padding: 0.6rem;
+  border-radius: 6px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.3rem;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.admin-filters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem 2.5rem;
+  margin-bottom: 2rem;
+  justify-items: stretch;
+  align-items: end;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+  padding: 2rem 1.5rem;
+  
+}
+
+
+.admin-filter-item {
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 0;
+}
+
+
+.status-label {
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+  color: #1976d2;
+  font-size: 1rem;
+  text-align: left;
+}
+
+
+.status-select {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 1rem;
+  background: #f5faff;
+  color: #1976d2;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(25, 118, 210, 0.04);
+  margin-top: 0.1rem;
+}
+
+
+.admin-no-tasks {
+  text-align: center;
+  margin-top: 2rem;
+  color: #888;
+  font-size: 1.1rem;
+  font-weight: 500;
+}

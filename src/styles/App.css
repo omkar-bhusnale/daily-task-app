@@ -1,0 +1,112 @@
+/* Custom styles for App.jsx */
+body {
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  background: #f4f6fb;
+}
+.app-container {
+  min-height: 100vh;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.cards-row {
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  margin-bottom: 0;
+  width: 100%;
+  max-width: 500px;
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+.card:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.14);
+}
+.tasks-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+}
+.card label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  display: block;
+  color: #2563eb;
+  font-size: 1rem;
+  align-self: flex-start;
+}
+
+.card input,
+.card select,
+.card textarea {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0.7rem;
+  border: 1px solid #e0e7ef;
+  font-size: 1.08rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  background: #f7f9fc;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.card input:focus,
+.card select:focus,
+.card textarea:focus {
+  border: 1.5px solid #2563eb;
+  box-shadow: 0 0 0 2px #2563eb22;
+  outline: none;
+}
+
+.card button {
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(90deg, #2563eb 60%, #1746a2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.9rem 0;
+  font-size: 1.12rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.card button:hover {
+  background: linear-gradient(90deg, #1746a2 60%, #2563eb 100%);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.12);
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  .card {
+    padding: 1rem;
+    max-width: 98vw;
+  }
+  .card input,
+  .card select,
+  .card textarea,
+  .card button {
+    max-width: 98vw;
+  }
+}

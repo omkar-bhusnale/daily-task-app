@@ -1,0 +1,22 @@
+/* DatePicker styles */
+.date-picker {
+  margin-bottom: 1.2rem;
+}
+.date-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  color: #222;
+}
+.date-input {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  width: 100%;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+.date-input:focus {
+  border-color: #2563eb;
+  outline: none;
+}
