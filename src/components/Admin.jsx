@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import TaskTable from "./TaskTable";
 import UserSelector from "./UserSelector";
+import { toast } from 'react-toastify';
 
 import "../styles/Admin.css";
 
@@ -37,8 +38,15 @@ export default function Admin({ users }) {
     e.preventDefault();
     if (password === ADMIN_PASSWORD) {
       setAuthenticated(true);
-    } else {
-      alert("Incorrect password");
+      setPassword("");
+      toast.success("Login successful!");
+    } 
+    else if(String(password).length === 0) {
+      toast.error("Please enter a password");
+    }
+    else {
+      toast.error("Incorrect password");
+      setPassword("");
     }
   };
 

@@ -8,13 +8,17 @@ import UserSelector from './components/UserSelector';
 import TaskForm from './components/TaskForm';
 import DatePicker from './components/DatePicker';
 import Admin from './components/Admin';
+import { toast } from 'react-toastify';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+
 
 function App({ adminMode = false }) {
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10));
   const backendUrl = import.meta.env.VITE_API_KEY || 'http://localhost:5000';
+  const queryClient = useQueryClient();
 
   const users = [
     { Name: "Sachin" },
@@ -34,7 +38,10 @@ function App({ adminMode = false }) {
       if (!res.ok) throw new Error('Failed to fetch tasks');
       return res.json();
     },
-    enabled: !!selectedUser
+    enabled: !!selectedUser,
+    onError: (error) => {
+      toast.error(error.message || 'Error loading tasks');
+    }
   });
 
   // Add task mutation
@@ -50,6 +57,10 @@ function App({ adminMode = false }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['tasks']);
+      toast.success('Task added successfully');
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Failed to add task');
     }
   });
 
@@ -66,6 +77,10 @@ function App({ adminMode = false }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['tasks']);
+      toast.success('Task updated successfully');
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Failed to update task');
     }
   });
 
@@ -90,9 +105,6 @@ function App({ adminMode = false }) {
 
   if (tasksLoading) {
     return <div className="app-container"><Header /><main className="main-content"><div>Loading...</div></main><Footer /></div>;
-  }
-  if (tasksError) {
-    return <div className="app-container"><Header /><main className="main-content"><div>Error loading data.</div></main><Footer /></div>;
   }
 
   if (adminMode) {
