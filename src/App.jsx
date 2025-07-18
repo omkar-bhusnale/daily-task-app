@@ -9,9 +9,14 @@ import TaskForm from './components/TaskForm';
 import DatePicker from './components/DatePicker';
 import Admin from './components/Admin';
 
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 function App({ adminMode = false }) {
-  const [users, setUsers] = useState([
+  const [selectedUser, setSelectedUser] = useState("");
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10));
+  const backendUrl = import.meta.env.VITE_API_KEY || 'http://localhost:5000';
+
+  const users = [
     { Name: "Sachin" },
     { Name: "Omkar" },
     { Name: "Gauri" },
@@ -19,24 +24,52 @@ function App({ adminMode = false }) {
     { Name: "Dinesh" },
     { Name: "Neeraj" },
     { Name: "Pragati" },
-  ]);
+  ]
+  
+  // Fetch tasks
+  const { data: tasks = [], isLoading: tasksLoading, error: tasksError } = useQuery({
+    queryKey: ['tasks', selectedUser],
+    queryFn: async () => {
+      const res = await fetch(`${backendUrl}/tasks`);
+      if (!res.ok) throw new Error('Failed to fetch tasks');
+      return res.json();
+    },
+    enabled: !!selectedUser
+  });
 
-  const backendUrl = import.meta.env.VITE_API_KEY || 'http://localhost:5000';
+  // Add task mutation
+  const addTaskMutation = useMutation({
+    mutationFn: async (newTask) => {
+      const res = await fetch(`${backendUrl}/tasks`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newTask)
+      });
+      if (!res.ok) throw new Error('Failed to add task');
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['tasks']);
+    }
+  });
 
-  const [selectedUser, setSelectedUser] = useState("");
-  const [tasks, setTasks] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10));
-  // Temporary JSON database for tasks
-  // All tasks are stored in the tasks state
+  // Update task mutation
+  const updateTaskMutation = useMutation({
+    mutationFn: async (updatedTask) => {
+      const res = await fetch(`${backendUrl}/tasks/${updatedTask.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedTask)
+      });
+      if (!res.ok) throw new Error('Failed to update task');
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['tasks']);
+    }
+  });
 
-  // Fetch tasks from backend API
-  useEffect(() => {
-    fetch(`${backendUrl}/tasks`)
-      .then(res => res.json())
-      .then(setTasks);
-  }, [selectedUser]);
-
-  // Add task
+  // Add task handler
   const handleAddTask = ({ task, projectName, status, comments }) => {
     if (!selectedUser) return;
     const newTask = {
@@ -47,25 +80,20 @@ function App({ adminMode = false }) {
       comments,
       date: selectedDate
     };
-    fetch(`${backendUrl}/tasks`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newTask)
-    })
-      .then(res => res.json())
-      .then(addedTask => setTasks(prev => [addedTask, ...prev]));
+    addTaskMutation.mutate(newTask);
   };
 
-  // Update task
+  // Update task handler
   const handleUpdateTask = (updatedTask) => {
-    fetch(`${backendUrl}/tasks/${updatedTask.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedTask)
-    })
-      .then(res => res.json())
-      .then(savedTask => setTasks(tasks => tasks.map(t => t.id === savedTask.id ? savedTask : t)));
+    updateTaskMutation.mutate(updatedTask);
   };
+
+  if (tasksLoading) {
+    return <div className="app-container"><Header /><main className="main-content"><div>Loading...</div></main><Footer /></div>;
+  }
+  if (tasksError) {
+    return <div className="app-container"><Header /><main className="main-content"><div>Error loading data.</div></main><Footer /></div>;
+  }
 
   if (adminMode) {
     return <Admin tasks={tasks} users={users.map(u => u.Name)} />;

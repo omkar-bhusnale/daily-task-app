@@ -18,8 +18,8 @@ export default function TaskTable({ tasks }) {
           </tr>
         </thead>
         <tbody>
-          {tasks.map(task => (
-            <tr key={task.id}>
+          {tasks.map((task, idx) => (
+            <tr key={task._id || task.id || idx}>
               <td>{task.userName}</td>
               <td>{task.date}</td>
               <td>{task.projectName}</td>

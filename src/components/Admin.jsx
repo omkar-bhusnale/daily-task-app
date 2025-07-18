@@ -1,16 +1,19 @@
+
 import React, { useState } from "react";
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import TaskTable from "./TaskTable";
 import UserSelector from "./UserSelector";
-import DatePicker from "./DatePicker";
 
 import "../styles/Admin.css";
 
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "admin123";
+const backendUrl = import.meta.env.VITE_API_KEY;
 
 
-export default function Admin({ tasks, users }) {
+
+export default function Admin({ users }) {
   const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
@@ -18,6 +21,17 @@ export default function Admin({ tasks, users }) {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
+
+  // Fetch tasks, refetch when selectedUser changes
+  const { data: tasks = [], isLoading: tasksLoading, error: tasksError, refetch } = useQuery({
+    queryKey: ['tasks', selectedUser],
+    queryFn: async () => {
+      const res = await fetch(`${backendUrl}/tasks`);
+      if (!res.ok) throw new Error('Failed to fetch tasks');
+      return res.json();
+    },
+    enabled: !!selectedUser // Only fetch when a user is selected
+  });
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -27,6 +41,7 @@ export default function Admin({ tasks, users }) {
       alert("Incorrect password");
     }
   };
+
 
 
   // Filter tasks by user, date range, and status
@@ -45,6 +60,7 @@ export default function Admin({ tasks, users }) {
     if (selectedStatus && task.status !== selectedStatus) return false;
     return true;
   });
+
 
   if (!authenticated) {
     return (
@@ -73,10 +89,17 @@ export default function Admin({ tasks, users }) {
     );
   }
 
+  if (tasksLoading) {
+    return <div className="admin-panel"><div>Loading data...</div></div>;
+  }
+  if (tasksError) {
+    return <div className="admin-panel"><div>Error loading data.</div></div>;
+  }
+
   return (
     <div className="admin-panel">
       <div className="admin-header">
-        <h2 className="admin-title">Admin Task Table</h2>
+        <h2 className="admin-title">Employee's Task Details</h2>
         <button
           onClick={() => navigate("/")}
           className="admin-back-btn"

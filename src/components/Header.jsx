@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <header className="header-navbar">
       <div className="header-navbar-content">
-        <h1 className="header-title">Daily Task Appender</h1>
+        <h1 className="header-title">Software Daily Tasks</h1>
         <div className="header-settings-container">
           <button
             onClick={() => navigate('/admin')}
